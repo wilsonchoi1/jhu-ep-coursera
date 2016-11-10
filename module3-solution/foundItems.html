@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table">
+    <th></th><th>Short Name</th><th>Name</th>
+    <th>Description</th>
+    <th>Price small</th>
+    <th>Price large</th>
+    <th>Small portion name</th>
+    <th>Large portion name</th>
+    <th></th>
+    <tr ng-repeat="item in nidc.items">
+      <td>{{$index+1}}</td>
+      <td>{{item.short_name}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.price_small}}</td>
+      <td>{{item.price_large}}</td>
+      <td>{{item.small_portion_name}}</td>
+      <td>{{item.large_portion_name}}</td>
+      <td><button ng-click="nidc.onRemove({index: $index});">Remove Item</button></td>
+    </tr>
+  </table>
+</div>
