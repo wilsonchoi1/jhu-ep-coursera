@@ -28,16 +28,33 @@ function NarrowItDownController(MenuSearchService) {
 
   menu.searchTerm = "";
 
+  menu.showNothingFound = false;
+  menu.showResult = false;
+
   menu.removeItem = function(index){
     menu.found.splice(index, 1);
   }
 
   menu.getMatchedMenuItems = function(){
+
+    console.log("showNothingFound="+menu.showNothingFound);
+    if (menu.searchTerm === ""){
+      menu.showNothingFound = true;
+      menu.showResult = false;
+      return;
+    }
     var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
 
     promise.then(function (response) {
       menu.found = response;
-      console.log("menus="+menu.found[0].name);
+      if (menu.found.length > 0){
+        menu.showNothingFound = false;
+        menu.showResult = true;
+      } else {
+        menu.showNothingFound = true;
+        menu.showResult = false;
+      }
+
     })
     .catch(function (error) {
       console.log("Something went terribly wrong.");

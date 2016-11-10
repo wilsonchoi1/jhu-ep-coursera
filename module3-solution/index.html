@@ -18,9 +18,13 @@
     <div class="form-group narrow-button">
       <button class="btn btn-primary" ng-click="nidc.getMatchedMenuItems();">Narrow It Down For Me!</button>
     </div>
-
+    <div class="row" ng-show="nidc.showNothingFound">
+      <div class="col-xs-12">
+      Nothing Found
+    </div>
+    </div>
     <!-- found-items should be implemented as a component -->
-    <div class="row">
+    <div class="row" ng-show="nidc.showResult">
       <div class="col-xs-12">
         <found-items items="nidc.found" on-remove="nidc.removeItem(index)"></found-items>
       </div>
