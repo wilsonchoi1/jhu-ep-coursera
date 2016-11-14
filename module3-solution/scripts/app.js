@@ -43,9 +43,8 @@ function NarrowItDownController(MenuSearchService) {
       menu.showResult = false;
       return;
     }
-    var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
 
-    promise.then(function (response) {
+    MenuSearchService.getMatchedMenuItems(menu.searchTerm).then(function (response) {
       menu.found = response;
       if (menu.found.length > 0){
         menu.showNothingFound = false;
@@ -64,15 +63,13 @@ function NarrowItDownController(MenuSearchService) {
 }
 
 
-MenuSearchService.$inject = ['$q', '$http', 'ApiBasePath'];
-function MenuSearchService($q, $http, ApiBasePath) {
+MenuSearchService.$inject = ['$http', 'ApiBasePath'];
+function MenuSearchService($http, ApiBasePath) {
   var service = this;
 
   service.getMatchedMenuItems = function (searchTerm) {
-    var deferred = $q.defer();
-    var promise = deferred.promise;
 
-    var response = $http({
+    return $http({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json")
     }).then(function(result){
@@ -84,10 +81,9 @@ function MenuSearchService($q, $http, ApiBasePath) {
           found.push(result.data.menu_items[i]);
         }
       }
-      deferred.resolve(found);
+	  return found;
     });
 
-    return promise;
   };
 
 
