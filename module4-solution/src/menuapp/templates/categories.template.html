@@ -1,0 +1,6 @@
+Please select one of the category:
+<ul>
+  <li ng-repeat="category in catalogList.categories">
+	<a ui-sref="itemsList({categoryShortName: category.short_name})">{{ category.name }}</a>
+  </li>
+</ul>
